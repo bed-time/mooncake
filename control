@@ -1,0 +1,9 @@
+Package: luv.bedtime.mooncake
+Name: Mooncake 🥮
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Take your control center to the moon 🌙
+Maintainer: bedtime
+Author: bedtime
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
