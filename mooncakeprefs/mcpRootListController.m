@@ -23,8 +23,8 @@
 -(void)viewWillDisappear:(BOOL)animated{
 	[super viewWillDisappear:animated];
 
-	((UINavigationController*)self.navigationController.parentViewController).navigationBar.barStyle = barStyle;
-	((UINavigationController*)self.navigationController.parentViewController).navigationBar.titleTextAttributes = titleTextAttributes;
+	self.navigationController.navigationController.navigationBar.barStyle = barStyle;
+	self.navigationController.navigationController.navigationBar.titleTextAttributes = titleTextAttributes;
 }
 
 - (NSArray *)specifiers {
