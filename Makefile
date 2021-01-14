@@ -11,8 +11,6 @@ TWEAK_NAME = Mooncake
 Mooncake_FILES = Tweak.xm
 Mooncake_CFLAGS = -fobjc-arc
 
-Mooncake_EXTRA_FRAMEWORKS += Cephei
-
 include $(THEOS_MAKE_PATH)/tweak.mk
 SUBPROJECTS += mooncakeprefs
 include $(THEOS_MAKE_PATH)/aggregate.mk
