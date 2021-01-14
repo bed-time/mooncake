@@ -63,9 +63,9 @@
 	[super setPreferenceValue:value specifier:specifier];
 
     NSMutableDictionary *preferences = [NSMutableDictionary dictionary];
-    [preferences addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"/User/Library/Preferences/%@.plist", specifier.properties[@"defaults"]]]];
+    [preferences addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"/var/mobile/Library/Preferences/%@.plist", specifier.properties[@"defaults"]]]];
     [preferences setObject:value forKey:specifier.properties[@"key"]];
-    [preferences writeToFile:[NSString stringWithFormat:@"/User/Library/Preferences/%@.plist", specifier.properties[@"defaults"]] atomically:YES];
+    [preferences writeToFile:[NSString stringWithFormat:@"/var/mobile/Library/Preferences/%@.plist", specifier.properties[@"defaults"]] atomically:YES];
 
 	[[NSClassFromString(@"NSDistributedNotificationCenter") defaultCenter] postNotificationName:@"luv.bedtime.mooncake/updatePreferences" object:NULL];
 }
