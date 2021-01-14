@@ -39,7 +39,7 @@
 			<key>label</key>
 			<string>Source Code</string>
 			<key>action</key>
-			<string>OpenInGithubBecauseIAmGodAndYouDoAsISay</string>
+			<string>openInGithubBecauseIAmGodAndYouDoAsISay</string>
 		</dict>
 
 	</array>

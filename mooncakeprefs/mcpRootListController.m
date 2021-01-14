@@ -10,7 +10,7 @@
 	return _specifiers;
 }
 
--(void)OpenInGithubBecauseIAmGodAndYouDoAsISay {
+-(void)openInGithubBecauseIAmGodAndYouDoAsISay {
 	[[UIApplication sharedApplication] 
 	openURL:[NSURL URLWithString: @"https://github.com/bed-time/mooncake"]
 	options:@{}
