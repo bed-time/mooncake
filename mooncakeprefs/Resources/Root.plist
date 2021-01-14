@@ -23,9 +23,6 @@
 			<string>Enabled</string>
 			<key>label</key>
 			<string>Enabled</string>
-
-			<key>PostNotification</key>
-            <string>luv.bedtime.mooncake/ReloadPrefs</string>
 		</dict>
 
 
