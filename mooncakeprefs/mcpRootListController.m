@@ -12,6 +12,7 @@
 
 	titleTextAttributes = ((UINavigationController*)self.navigationController.parentViewController).navigationBar.titleTextAttributes;
 	((UINavigationController*)self.navigationController.parentViewController).navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
+    [super viewDidLoad];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
