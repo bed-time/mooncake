@@ -20,18 +20,6 @@
 }
 
 -(void)loadPreferences{
-	#pragma clang diagnostic push
-	#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-	
-	dispatch_async(dispatch_get_main_queue(), ^{
-		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Hi"] preferredStyle:UIAlertControllerStyleAlert];
-		UIAlertAction* dismissAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {}];
-		[alert addAction:dismissAction];
-		[[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:alert animated:YES completion:nil];
-	});
-	
-	#pragma clang diagnostic pop
-
 	NSMutableDictionary *preferences = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/var/mobile/Library/Preferences/luv.bedtime.mooncakeprefs.plist"];
 
     if(preferences){
