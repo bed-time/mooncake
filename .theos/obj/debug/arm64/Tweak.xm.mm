@@ -25,8 +25,8 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class CCUIModularControlCenterOverlayViewController; @class mpcRootListController; 
-static void (*_logos_orig$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad)(_LOGOS_SELF_TYPE_NORMAL CCUIModularControlCenterOverlayViewController* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad(_LOGOS_SELF_TYPE_NORMAL CCUIModularControlCenterOverlayViewController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$mpcRootListController$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL mpcRootListController* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$mpcRootListController$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL mpcRootListController* _LOGOS_SELF_CONST, SEL); 
+@class CCUIModularControlCenterOverlayViewController; 
+static void (*_logos_orig$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad)(_LOGOS_SELF_TYPE_NORMAL CCUIModularControlCenterOverlayViewController* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad(_LOGOS_SELF_TYPE_NORMAL CCUIModularControlCenterOverlayViewController* _LOGOS_SELF_CONST, SEL); 
 
 #line 6 "Tweak.xm"
  
@@ -43,13 +43,6 @@ static void (*_logos_orig$_ungrouped$CCUIModularControlCenterOverlayViewControll
 		[self.view addSubview: coverView];
 	}
 
-
-
-	static void _logos_method$_ungrouped$mpcRootListController$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL mpcRootListController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
-		_logos_orig$_ungrouped$mpcRootListController$layoutSubviews(self, _cmd);
-		[self setBackgroundColor: [UIColor colorWithRed: 0.04 green: 0.06 blue: 0.10 alpha: 1.00]];
-	}
-
 static __attribute__((constructor)) void _logosLocalInit() {
-{Class _logos_class$_ungrouped$CCUIModularControlCenterOverlayViewController = objc_getClass("CCUIModularControlCenterOverlayViewController"); { MSHookMessageEx(_logos_class$_ungrouped$CCUIModularControlCenterOverlayViewController, @selector(viewDidLoad), (IMP)&_logos_method$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad, (IMP*)&_logos_orig$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad);}Class _logos_class$_ungrouped$mpcRootListController = objc_getClass("mpcRootListController"); { MSHookMessageEx(_logos_class$_ungrouped$mpcRootListController, @selector(layoutSubviews), (IMP)&_logos_method$_ungrouped$mpcRootListController$layoutSubviews, (IMP*)&_logos_orig$_ungrouped$mpcRootListController$layoutSubviews);}} }
-#line 27 "Tweak.xm"
+{Class _logos_class$_ungrouped$CCUIModularControlCenterOverlayViewController = objc_getClass("CCUIModularControlCenterOverlayViewController"); { MSHookMessageEx(_logos_class$_ungrouped$CCUIModularControlCenterOverlayViewController, @selector(viewDidLoad), (IMP)&_logos_method$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad, (IMP*)&_logos_orig$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad);}} }
+#line 20 "Tweak.xm"

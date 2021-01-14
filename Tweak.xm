@@ -17,10 +17,3 @@
 		[self.view addSubview: coverView];
 	}
 %end
-
-%hook mpcRootListController
-	-(void)layoutSubviews {
-		%orig;
-		[self setBackgroundColor: [UIColor colorWithRed: 0.04 green: 0.06 blue: 0.10 alpha: 1.00]];
-	}
-%end
