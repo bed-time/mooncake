@@ -1,11 +1,5 @@
 #include "mcpRootListController.h"
 
-/*@interface CPDistributedMessagingCenter : NSObject
-+(instancetype)centerNamed:(NSString*)name;
--(void)registerForMessageName:(id)arg1 target:(id)arg2 selector:(SEL)arg3;
--(BOOL)sendMessageName:(id)arg1 userInfo:(id)arg2;
-@end*/
-
 @implementation mcpRootListController
 -(void)viewDidLoad{
 	[super viewDidLoad];
@@ -56,8 +50,13 @@
 	return cell;
 }
 
--(void)setPreferenceValue:(id)value specifier:(id)specifier{
+-(void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier{
 	[super setPreferenceValue:value specifier:specifier];
+
+    NSMutableDictionary *preferences = [NSMutableDictionary dictionary];
+    [preferences addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"/User/Library/Preferences/%@.plist", specifier.properties[@"defaults"]]]];
+    [preferences setObject:value forKey:specifier.properties[@"key"]];
+    [preferences writeToFile:[NSString stringWithFormat:@"/User/Library/Preferences/%@.plist", specifier.properties[@"defaults"]] atomically:YES];
 
 	[[NSClassFromString(@"NSDistributedNotificationCenter") defaultCenter] postNotificationName:@"luv.bedtime.mooncake/updatePreferences" object:NULL];
 }
