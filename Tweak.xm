@@ -2,10 +2,15 @@
 #import <SpringBoard/SpringBoard.h>
 #import "Mooncake.h"
 
+static BOOL Enable;
 
+
+%group enabled
 
 %hook CCUIModularControlCenterOverlayViewController 
 	-(void)viewDidLoad {
+
+		NSDictionary *bundle = []
 
 		%orig;
 		
@@ -16,10 +21,19 @@
 		coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
 		coverView.userInteractionEnabled = NO;
 		[self.view addSubview: coverView];
-
-		UIView *blur = [[%c(MTMaterialView) alloc] initWithFrame:screenRect];
-		blur.userInteractionEnabled = NO;
-
-		[coverView addSubview: blur];
 	}
 %end
+
+// End %ctor
+
+%end
+
+// Is our tweak on?
+
+%ctor {
+    HBPreferences *pfs = [[HBPreferences alloc] initWithIdentifier:@"luv.bedtime.mooncake"];
+    [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
+    if(Enable) {
+        %init(enabled);
+    }
+}

@@ -3,6 +3,7 @@
 #import <SpringBoard/SpringBoard.h>
 #import "Mooncake.h"
 
+static BOOL Enable;
 
 
 
@@ -26,14 +27,18 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class CCUIModularControlCenterOverlayViewController; @class MTMaterialView; 
-static void (*_logos_orig$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad)(_LOGOS_SELF_TYPE_NORMAL CCUIModularControlCenterOverlayViewController* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad(_LOGOS_SELF_TYPE_NORMAL CCUIModularControlCenterOverlayViewController* _LOGOS_SELF_CONST, SEL); 
-static __inline__ __attribute__((always_inline)) __attribute__((unused)) Class _logos_static_class_lookup$MTMaterialView(void) { static Class _klass; if(!_klass) { _klass = objc_getClass("MTMaterialView"); } return _klass; }
-#line 7 "Tweak.xm"
- 
-	static void _logos_method$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad(_LOGOS_SELF_TYPE_NORMAL CCUIModularControlCenterOverlayViewController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+@class CCUIModularControlCenterOverlayViewController; 
 
-		_logos_orig$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad(self, _cmd);
+
+#line 8 "Tweak.xm"
+static void (*_logos_orig$enabled$CCUIModularControlCenterOverlayViewController$viewDidLoad)(_LOGOS_SELF_TYPE_NORMAL CCUIModularControlCenterOverlayViewController* _LOGOS_SELF_CONST, SEL); static void _logos_method$enabled$CCUIModularControlCenterOverlayViewController$viewDidLoad(_LOGOS_SELF_TYPE_NORMAL CCUIModularControlCenterOverlayViewController* _LOGOS_SELF_CONST, SEL); 
+
+ 
+	static void _logos_method$enabled$CCUIModularControlCenterOverlayViewController$viewDidLoad(_LOGOS_SELF_TYPE_NORMAL CCUIModularControlCenterOverlayViewController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+
+		NSDictionary *bundle = []
+
+		_logos_orig$enabled$CCUIModularControlCenterOverlayViewController$viewDidLoad(self, _cmd);
 		
 		
 
@@ -42,13 +47,19 @@ static __inline__ __attribute__((always_inline)) __attribute__((unused)) Class _
 		coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
 		coverView.userInteractionEnabled = NO;
 		[self.view addSubview: coverView];
-
-		UIView *blur = [[_logos_static_class_lookup$MTMaterialView() alloc] initWithFrame:screenRect];
-		blur.userInteractionEnabled = NO;
-
-		[coverView addSubview: blur];
 	}
 
-static __attribute__((constructor)) void _logosLocalInit() {
-{Class _logos_class$_ungrouped$CCUIModularControlCenterOverlayViewController = objc_getClass("CCUIModularControlCenterOverlayViewController"); { MSHookMessageEx(_logos_class$_ungrouped$CCUIModularControlCenterOverlayViewController, @selector(viewDidLoad), (IMP)&_logos_method$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad, (IMP*)&_logos_orig$_ungrouped$CCUIModularControlCenterOverlayViewController$viewDidLoad);}} }
-#line 26 "Tweak.xm"
+
+
+
+
+
+
+
+static __attribute__((constructor)) void _logosLocalCtor_d84aacd4(int __unused argc, char __unused **argv, char __unused **envp) {
+    HBPreferences *pfs = [[HBPreferences alloc] initWithIdentifier:@"luv.bedtime.mooncake"];
+    [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
+    if(Enable) {
+        {Class _logos_class$enabled$CCUIModularControlCenterOverlayViewController = objc_getClass("CCUIModularControlCenterOverlayViewController"); { MSHookMessageEx(_logos_class$enabled$CCUIModularControlCenterOverlayViewController, @selector(viewDidLoad), (IMP)&_logos_method$enabled$CCUIModularControlCenterOverlayViewController$viewDidLoad, (IMP*)&_logos_orig$enabled$CCUIModularControlCenterOverlayViewController$viewDidLoad);}}
+    }
+}
