@@ -2,6 +2,7 @@
 #import <SpringBoard/SpringBoard.h>
 #import <mooncakeprefs/mcpRootListController.h>
 #import "Mooncake.h"
+#import "Preferences.h"
 
 %hook CCUIModularControlCenterOverlayViewController 
 	-(void)viewDidLoad {
@@ -17,3 +18,7 @@
 		[self.view addSubview: coverView];
 	}
 %end
+
+%ctor {
+	[Preferences.sharedInstance setup];
+}
