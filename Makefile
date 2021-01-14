@@ -1,5 +1,3 @@
-export THEOS_DEVICE_IP = 192.168.0.19
-
 export ARCHS = arm64 arm64e
 export TARGET = iphone:clang::13.1.3
 export GO_EASY_ON_ME = 1
