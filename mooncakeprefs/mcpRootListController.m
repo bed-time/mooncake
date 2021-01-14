@@ -7,10 +7,10 @@
 	self.viewIfLoaded.backgroundColor = [UIColor colorWithRed: 0.04 green: 0.06 blue: 0.10 alpha: 1.00];
 	self.viewIfLoaded.subviews[0].backgroundColor = UIColor.clearColor;
 
-	barStyle = ((UINavigationController*)self.navigationController.parentViewController).navigationBar.barStyle;
+	barStyle = self.navigationController.navigationController.navigationBar.barStyle;
 	self.navigationController.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 
-	titleTextAttributes = ((UINavigationController*)self.navigationController.parentViewController).navigationBar.titleTextAttributes;
+	titleTextAttributes = self.navigationController.navigationController.navigationBar.titleTextAttributes;
 	self.navigationController.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
     [super viewDidLoad];
 }
