@@ -1,4 +1,4 @@
-void printTest();
-
 @interface CCUIModularControlCenterOverlayViewController : UIViewController
+@end
+@interface MTMaterialView: UIView
 @end
