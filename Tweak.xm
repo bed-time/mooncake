@@ -15,5 +15,8 @@
 		coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
 		coverView.userInteractionEnabled = NO;
 		[self.view addSubview: coverView];
+
+		coverView.layer.cornerRadius = 12;
+		coverView.layer.cornerCurve = kCACornerCurveContinuous;
 	}
 %end
