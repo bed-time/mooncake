@@ -1,6 +1,25 @@
 #include "mcpRootListController.h"
 
 @implementation mcpRootListController
+-(void)viewDidLoad{
+	[super viewDidLoad];
+
+	self.viewIfLoaded.backgroundColor = [UIColor colorWithRed: 0.04 green: 0.06 blue: 0.10 alpha: 1.00];
+	self.viewIfLoaded.subviews[0].backgroundColor = UIColor.clearColor;
+
+	barStyle = ((UINavigationController*)self.navigationController.parentViewController).navigationBar.barStyle;
+	((UINavigationController*)self.navigationController.parentViewController).navigationBar.barStyle = UIBarStyleBlack;
+
+	titleTextAttributes = ((UINavigationController*)self.navigationController.parentViewController).navigationBar.titleTextAttributes;
+	((UINavigationController*)self.navigationController.parentViewController).navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+	[super viewWillDisappear:animated];
+
+	((UINavigationController*)self.navigationController.parentViewController).navigationBar.barStyle = barStyle;
+	((UINavigationController*)self.navigationController.parentViewController).navigationBar.titleTextAttributes = titleTextAttributes;
+}
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
@@ -17,7 +36,11 @@
 	completionHandler:nil];
 }
 
-
-
+-(UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath{
+	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+	cell.backgroundColor = UIColor.blackColor;
+	if([cell isKindOfClass:[NSClassFromString(@"PSTableCell") class]] && ((PSTableCell*)cell).titleLabel.textColor == UIColor.labelColor) ((PSTableCell*)cell).titleLabel.textColor = UIColor.whiteColor;
+	return cell;
+}
 @end
 
