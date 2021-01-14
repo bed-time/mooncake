@@ -8,18 +8,18 @@
 	self.viewIfLoaded.subviews[0].backgroundColor = UIColor.clearColor;
 
 	barStyle = ((UINavigationController*)self.navigationController.parentViewController).navigationBar.barStyle;
-	((UINavigationController*)self.navigationController.parentViewController).navigationBar.barStyle = UIBarStyleBlack;
+	self.navigationController.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 
 	titleTextAttributes = ((UINavigationController*)self.navigationController.parentViewController).navigationBar.titleTextAttributes;
-	((UINavigationController*)self.navigationController.parentViewController).navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
+	self.navigationController.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: UIColor.whiteColor};
     [super viewDidLoad];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
 	[super viewWillDisappear:animated];
 
-	((UINavigationController*)self.navigationController.parentViewController).navigationBar.barStyle = barStyle;
-	((UINavigationController*)self.navigationController.parentViewController).navigationBar.titleTextAttributes = titleTextAttributes;
+	self.navigationController.navigationController.navigationBar.barStyle = barStyle;
+	self.navigationController.navigationController.navigationBar.titleTextAttributes = titleTextAttributes;
 }
 
 - (NSArray *)specifiers {
