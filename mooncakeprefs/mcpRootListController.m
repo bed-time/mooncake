@@ -36,6 +36,13 @@
 	completionHandler:nil];
 }
 
+-(void)openDiscordBcISaidSo {
+	[[UIApplication sharedApplication] 
+	openURL:[NSURL URLWithString: @"https://discord.gg/xtze9JzcRq"]
+	options:@{}
+	completionHandler:nil];
+}
+
 -(UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath{
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 	cell.backgroundColor = UIColor.blackColor;

@@ -42,6 +42,15 @@
 			<string>openInGithubBecauseIAmGodAndYouDoAsISay</string>
 		</dict>
 
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Join our discord!</string>
+			<key>action</key>
+			<string>openDiscordBcISaidSo</string>
+		</dict>
+
 	</array>
 	<key>title</key>
 	<string>mooncakeprefs</string>
