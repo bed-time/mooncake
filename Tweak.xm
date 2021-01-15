@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 #import <SpringBoard/SpringBoard.h>
 #import <mooncakeprefs/mcpRootListController.h>
-#import "Mooncake.h"
+#import "Tweak.h"
 #import "Preferences.h"
 
 @interface UIGestureRecognizer()
