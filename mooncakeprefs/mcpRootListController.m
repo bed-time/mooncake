@@ -7,6 +7,8 @@
 	self.viewIfLoaded.backgroundColor = [UIColor colorWithRed: 0.04 green: 0.06 blue: 0.10 alpha: 1.00];
 	self.viewIfLoaded.subviews[0].backgroundColor = UIColor.clearColor;
 
+	[self table].separatorStyle = UITableViewCellSeparatorStyleNone;
+
 	barStyle = self.navigationController.navigationController.navigationBar.barStyle;
 	self.navigationController.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 
@@ -56,10 +58,6 @@
 
 	if([cell isKindOfClass:[NSClassFromString(@"PSTableCell") class]] && ((PSTableCell*)cell).titleLabel.textColor == UIColor.labelColor) ((PSTableCell*)cell).titleLabel.textColor = UIColor.whiteColor;
 	return cell;
-}
-
--(void)setSeparatorStyle:(long long)arg1 {
-    //oops
 }
 
 -(void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier{
