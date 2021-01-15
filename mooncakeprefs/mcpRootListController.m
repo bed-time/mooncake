@@ -1,4 +1,5 @@
 #include "mcpRootListController.h"
+#include <spawn.h>
 
 @implementation mcpRootListController
 -(void)viewDidLoad{
@@ -43,6 +44,12 @@
 	completionHandler:nil];
 }
 
+-(void)rspring {
+	pid_t pid;
+	const char* args[] = {"sbreload", NULL};
+	posix_spawn(&pid, "/usr/bin/sbreload", NULL, NULL, (char* const*)args, NULL);
+}
+
 -(UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath{
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 	cell.backgroundColor = UIColor.blackColor;
@@ -59,7 +66,8 @@
 }
 
 -(void)setSeparatorStyle:(long long)arg1 {
-    //oops
+    //oopsie! someone had their seperators wiped!
+
 }
 
 -(void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier{

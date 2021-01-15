@@ -13,9 +13,15 @@
 
 		CGRect screenRect = [[UIScreen mainScreen] bounds];
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 		UIView *coverView = [[UIView alloc] initWithFrame:screenRect];
-		coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+		coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
 		coverView.userInteractionEnabled = NO;
+		[coverView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 		[self.view addSubview: coverView];
 
 		//Blur-thingy
@@ -23,8 +29,15 @@
 		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     
     	UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    	[visualEffectView setFrame:self.view.bounds];
+    	[visualEffectView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2)];
     	[visualEffectView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+		[self.view addSubview: visualEffectView];
+
+		visualEffectView.layer.cornerRadius = 32;
+		visualEffectView.layer.cornerCurve = kCACornerCurveContinuous;
+		visualEffectView.clipsToBounds = YES;
+
+		
 
 		//Saturate and lighten the blur by removing the stupid subview thing that ios makes
 
