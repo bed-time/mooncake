@@ -74,7 +74,7 @@
 	self.alpha = diff / 100.0;
 
 	if(recognizer.state == UIGestureRecognizerStateEnded){
-		[UIView animateWithDuration:0.5 animations:^{
+		[UIView animateWithDuration:0.25 animations:^{
 			if(diff >= 50) {
 				self.alpha = 1;
 				presented = true;
