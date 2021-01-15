@@ -1,4 +1,5 @@
 #include "mcpRootListController.h"
+#include <spawn.h>
 
 @implementation mcpRootListController
 -(void)viewDidLoad{
@@ -43,6 +44,12 @@
 	openURL:[NSURL URLWithString: @"https://discord.gg/xtze9JzcRq"]
 	options:@{}
 	completionHandler:nil];
+}
+
+-(void)rspring {
+	pid_t pid;
+	const char* args[] = {"sbreload", NULL};
+	posix_spawn(&pid, "/usr/bin/sbreload", NULL, NULL, (char* const*)args, NULL);
 }
 
 -(UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath{
