@@ -45,14 +45,12 @@
 			<real>50</real>
 			<key>min</key>
 			<real>0</real>
+			<key>leftImage</key>
+			<string>round.png</string>
 			<key>showValue</key>
 			<true/>
-			<key>leftImage</key>
-			<string>square.png</string>
-			<key>rightImage</key>
-			<string>round.png</string>
 		</dict>
-		
+
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
@@ -80,6 +78,6 @@
 
 	</array>
 	<key>title</key>
-	<string>mooncakeprefs</string>
+	<string>Mooncake 🥮</string>
 </dict>
 </plist>
