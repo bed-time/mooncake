@@ -47,16 +47,19 @@
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 	cell.backgroundColor = UIColor.blackColor;
 
-	cell.layer.shadowRadius  = 1.5f;
-	cell.layer.shadowColor   = [UIColor colorWithRed:176.f/255.f green:199.f/255.f blue:226.f/255.f alpha:1.f].CGColor;
+	cell.layer.shadowRadius  = 20.0f;
+	cell.layer.shadowColor   = [UIColor blackColor].CGColor;
 	cell.layer.shadowOffset  = CGSizeMake(0.0f, 0.0f);
-	cell.layer.shadowOpacity = 0.9f;
+	cell.layer.shadowOpacity = 0.95f;
 	cell.layer.masksToBounds = NO;
-
 	cell.clipsToBounds = NO;
 
 	if([cell isKindOfClass:[NSClassFromString(@"PSTableCell") class]] && ((PSTableCell*)cell).titleLabel.textColor == UIColor.labelColor) ((PSTableCell*)cell).titleLabel.textColor = UIColor.whiteColor;
 	return cell;
+}
+
+-(void)setSeparatorStyle:(long long)arg1 {
+    //oops
 }
 
 -(void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier{
