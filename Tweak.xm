@@ -3,68 +3,35 @@
 #import <mooncakeprefs/mcpRootListController.h>
 #import "Tweak.h"
 #import "Preferences.h"
+#import "Mooncake.h"
 
-@interface UIGestureRecognizer()
-@property(nonatomic) NSNumber *lockEnabled;
-@property(nonatomic) NSNumber *trueEnabled;
-@end
+//Disable default CC gesture
+%hook SBControlCenterController
+-(instancetype)init{
+	SBControlCenterController *instance = %orig;
 
-%hook UIGestureRecognizer
-%property(nonatomic) NSNumber *lockEnabled;
-%property(nonatomic) NSNumber *trueEnabled;
+	[self updateGestureRecognizers];
 
--(void)setEnabled:(BOOL)enabled{
-	if(!self.lockEnabled || ![self.lockEnabled boolValue]) %orig;
-}
-
--(BOOL)enabled{
-	if(!self.lockEnabled || ![self.lockEnabled boolValue] || !self.trueEnabled) return %orig;
-	else return [self.trueEnabled boolValue];
+	return instance;
 }
 
 %new
--(void)setTrueEnabled:(BOOL)enabled{
-	self.lockEnabled = @false;
-	self.enabled = enabled;
-	self.lockEnabled = @true;
-}
-%end
+-(void)updateGestureRecognizers{
+	[MSHookIvar<UIPanGestureRecognizer*>(self.grabberTongue, "_edgePullGestureRecognizer") removeTarget:self.grabberTongue action:@selector(_handlePullGesture:)];
+	[MSHookIvar<UIPanGestureRecognizer*>(self.grabberTongue, "_edgePullGestureRecognizer") removeTarget:Mooncake.sharedInstance action:@selector(didPan:)];
+	[self.statusBarPullGestureRecognizer removeTarget:self action:@selector(_handleStatusBarPullDownGesture:)];
+	[self.statusBarPullGestureRecognizer removeTarget:Mooncake.sharedInstance action:@selector(didPan:)];
+	[self.indirectStatusBarPullGestureRecognizer removeTarget:self action:@selector(_handleStatusBarPullDownGesture:)];
+	[self.indirectStatusBarPullGestureRecognizer removeTarget:Mooncake.sharedInstance action:@selector(didPan:)];
 
-%hook CCUIModularControlCenterOverlayViewController 
--(void)viewDidLoad {
-	%orig;
-	
-	//backdrop
-	CGRect screenRect = [[UIScreen mainScreen] bounds];
-
-	UIView *coverView = [[UIView alloc] initWithFrame:screenRect];
-	coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
-	coverView.userInteractionEnabled = NO;
-	[coverView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-	[self.view addSubview: coverView];
-
-	//Blur-thingy
-	UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-
-	UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-	[visualEffectView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2)];
-	[visualEffectView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-	[self.view addSubview: visualEffectView];
-
-	visualEffectView.layer.cornerRadius = 32;
-	visualEffectView.layer.cornerCurve = kCACornerCurveContinuous;
-	visualEffectView.clipsToBounds = YES;
-
-	//Saturate and lighten the blur by removing the stupid subview thing that ios makes
-
-	for(UIView *view in self.view.subviews) {
-		if([view isMemberOfClass:%c(UIVisualEffectView)]) {
-			for(UIView *view2 in view.subviews) {
-				if([view2 isMemberOfClass:%c(_UIVisualEffectSubview)]) {
-					[view2 removeFromSuperview];
-				}
-			}
-		}
+	if(Preferences.sharedInstance.enabled){
+		[MSHookIvar<UIPanGestureRecognizer*>(self.grabberTongue, "_edgePullGestureRecognizer") addTarget:Mooncake.sharedInstance action:@selector(didPan:)];
+		[self.statusBarPullGestureRecognizer addTarget:Mooncake.sharedInstance action:@selector(didPan:)];
+		[self.indirectStatusBarPullGestureRecognizer addTarget:Mooncake.sharedInstance action:@selector(didPan:)];
+	} else{
+		[MSHookIvar<UIPanGestureRecognizer*>(self.grabberTongue, "_edgePullGestureRecognizer") addTarget:self.grabberTongue action:@selector(_handlePullGesture:)];
+		[self.statusBarPullGestureRecognizer addTarget:self action:@selector(_handleStatusBarPullDownGesture:)];
+		[self.indirectStatusBarPullGestureRecognizer addTarget:self action:@selector(_handleStatusBarPullDownGesture:)];
 	}
 }
 %end

@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "Headers.h"
 #import "Preferences.h"
 
 @implementation Preferences
@@ -25,5 +26,7 @@
     if(preferences){
 		self->enabled = ([preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : true);
     }
+
+	[SBControlCenterController.sharedInstanceIfExists updateGestureRecognizers];
 }
 @end

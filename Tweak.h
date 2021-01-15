@@ -1,12 +1,8 @@
-@interface SBGrabberTongue : NSObject{
-	UIPanGestureRecognizer *_edgePullGestureRecognizer;
-}
-@end
+#import "Headers.h"
 
-@interface SBControlCenterController : NSObject
-@property(nonatomic) SBGrabberTongue *grabberTongue;
-@property(nonatomic) UIPanGestureRecognizer *statusBarPullGestureRecognizer;
-@property(nonatomic) UIGestureRecognizer *indirectStatusBarPullGestureRecognizer;
+@interface UIGestureRecognizerTarget : NSObject
+@property(nonatomic, readonly) id target;
+@property(nonatomic, readonly) SEL action;
 @end
 
 @interface UISystemGestureView : UIView
