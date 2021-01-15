@@ -46,12 +46,6 @@
 	completionHandler:nil];
 }
 
--(void)rspring {
-	pid_t pid;
-	const char* args[] = {"sbreload", NULL};
-	posix_spawn(&pid, "/usr/bin/sbreload", NULL, NULL, (char* const*)args, NULL);
-}
-
 -(UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath{
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 	cell.backgroundColor = UIColor.blackColor;

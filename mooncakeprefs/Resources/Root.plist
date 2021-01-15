@@ -52,24 +52,7 @@
 			<key>rightImage</key>
 			<string>round.png</string>
 		</dict>
-
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>Respring</string>
-		</dict>
-
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>label</key>
-			<string>Respring?</string>
-			<key>action</key>
-			<string>rspring</string>
-		</dict>
-
-
+		
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
