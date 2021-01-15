@@ -27,6 +27,6 @@
 		self->enabled = ([preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : true);
     }
 
-	[SBControlCenterController.sharedInstanceIfExists updateGestureRecognizers];
+	[[NSClassFromString(@"SBControlCenterController") sharedInstanceIfExists] updateGestureRecognizers];
 }
 @end

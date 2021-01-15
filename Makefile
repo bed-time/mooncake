@@ -7,7 +7,6 @@ TWEAK_NAME = Mooncake
 
 Mooncake_FILES = $(wildcard *.xm *.x *.m)
 Mooncake_CFLAGS = -fobjc-arc
-Mooncake_PRIVATE_FRAMEWORKS = SpringBoard
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 SUBPROJECTS += mooncakeprefs
