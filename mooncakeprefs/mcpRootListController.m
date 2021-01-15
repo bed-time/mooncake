@@ -59,7 +59,7 @@
 	cell.layer.shadowRadius  = 20.0f;
 	cell.layer.shadowColor   = [UIColor blackColor].CGColor;
 	cell.layer.shadowOffset  = CGSizeMake(0.0f, 0.0f);
-	cell.layer.shadowOpacity = 0.95f;
+	cell.layer.shadowOpacity = 0.55f;
 	cell.layer.masksToBounds = NO;
 	cell.clipsToBounds = NO;
 

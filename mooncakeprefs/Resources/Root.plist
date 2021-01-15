@@ -9,7 +9,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>mooncakeprefs First Page</string>
+			<string>Enabled</string>
 		</dict>
 
 		<dict>
@@ -23,6 +23,34 @@
 			<string>enabled</string>
 			<key>label</key>
 			<string>Enabled</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>lable</key>
+			<string>Shapes</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>isSegmented</key>
+			<false/>
+			<key>defaults</key>
+			<string>luv.bedtime.mooncakeprefs</string>
+			<key>key</key>
+			<string>Corner</string>
+			<key>max</key>
+			<real>50</real>
+			<key>min</key>
+			<real>0</real>
+			<key>showValue</key>
+			<true/>
+			<key>leftImage</key>
+			<string>square.png</string>
+			<key>rightImage</key>
+			<string>round.png</string>
 		</dict>
 
 		<dict>
