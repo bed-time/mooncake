@@ -13,11 +13,6 @@
 
 		CGRect screenRect = [[UIScreen mainScreen] bounds];
 
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
 		UIView *coverView = [[UIView alloc] initWithFrame:screenRect];
 		coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
 		coverView.userInteractionEnabled = NO;
