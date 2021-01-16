@@ -69,7 +69,7 @@
 			<key>min</key>
 			<real>-75</real>
 			<key>leftImage</key>
-			<string>round.png</string>
+			<string>padding.png</string>
 			<key>showValue</key>
 			<true/>
 		</dict>
