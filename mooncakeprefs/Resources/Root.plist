@@ -63,7 +63,7 @@
 			<key>key</key>
 			<string>padding</string>
 			<key>default</key>
-			<real>32</real>
+			<real>0</real>
 			<key>max</key>
 			<real>50</real>
 			<key>min</key>
