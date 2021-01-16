@@ -1,3 +1,7 @@
+@interface UIWindow()
+-(void)_setSecure:(BOOL)secure;
+@end
+
 @interface SBGrabberTongue : NSObject{
 	UIPanGestureRecognizer *_edgePullGestureRecognizer;
 }
@@ -13,4 +17,18 @@
 +(instancetype)sharedInstanceIfExists;
 
 -(void)updateGestureRecognizers;
+@end
+
+@interface SBHomeGestureParticipant : NSObject
+-(void)invalidate;
+@end
+
+@interface SBHomeGestureArbiter : NSObject
+-(SBHomeGestureParticipant*)participantWithIdentifier:(NSInteger)identifier delegate:(id)delegate;
+@end
+
+@interface SBMainWorkspace : NSObject
+@property(class, readonly) SBMainWorkspace *sharedInstance;
+
+@property SBHomeGestureArbiter *homeGestureArbiter;
 @end

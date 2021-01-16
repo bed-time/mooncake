@@ -1,14 +1,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
-@interface UIWindow()
--(void)_setSecure:(BOOL)secure;
-@end
+#import "Headers.h"
 
 @interface Mooncake : UIWindow{
 	CGFloat _panY;
 
 	BOOL presented;
+	SBHomeGestureParticipant *participant;
 }
 
 @property(class, readonly) Mooncake *sharedInstance;

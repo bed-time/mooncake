@@ -62,6 +62,7 @@ static Mooncake *sharedInstance = NULL;
 
 -(void)didTapOutside{
 	presented = false;
+	[self didDismiss];
 
 	[UIView animateWithDuration:0.25 animations:^{
 		self.alpha = 0;
@@ -91,8 +92,18 @@ static Mooncake *sharedInstance = NULL;
 			if(diff >= 50) {
 				self.alpha = 1;
 				presented = true;
+				[self didPresent];
 			} else self.alpha = 0;
 		}
 	}];
+}
+
+-(void)didPresent{
+	participant = [((SBMainWorkspace*)[NSClassFromString(@"SBMainWorkspace") sharedInstance]).homeGestureArbiter participantWithIdentifier:15 delegate:NULL];
+}
+
+-(void)didDismiss{
+	[participant invalidate];
+	participant = NULL;
 }
 @end

@@ -1,7 +1,6 @@
 #import <UIKit/UIKit.h>
 #import <SpringBoard/SpringBoard.h>
 #import <mooncakeprefs/mcpRootListController.h>
-#import "Tweak.h"
 #import "Preferences.h"
 #import "Mooncake.h"
 
