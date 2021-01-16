@@ -65,9 +65,9 @@
 			<key>default</key>
 			<real>0</real>
 			<key>max</key>
-			<real>50</real>
+			<real>75</real>
 			<key>min</key>
-			<real>-50</real>
+			<real>-75</real>
 			<key>leftImage</key>
 			<string>round.png</string>
 			<key>showValue</key>
