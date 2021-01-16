@@ -1,13 +1,20 @@
 #import "Mooncake.h"
+#import "Preferences.h"
 
 @implementation Mooncake
+@synthesize backgroundBlurView;
+
+static Mooncake *sharedInstance = NULL;
 +(instancetype)sharedInstance{
-	static Mooncake *sharedInstance = NULL;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[Mooncake alloc] init];
     });
 
+    return sharedInstance;
+}
+
++(instancetype)sharedInstanceIfExists{
     return sharedInstance;
 }
 
@@ -28,14 +35,13 @@
 	//Blur-thingy
 	UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
 
-	UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-	[visualEffectView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2)];
-	[visualEffectView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-	[self addSubview: visualEffectView];
+	self.backgroundBlurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+	[self.backgroundBlurView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2)];
+	[self.backgroundBlurView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+	[self addSubview: self.backgroundBlurView];
 
-	visualEffectView.layer.cornerRadius = 32;
-	visualEffectView.layer.cornerCurve = kCACornerCurveContinuous;
-	visualEffectView.clipsToBounds = YES;
+	self.backgroundBlurView.layer.cornerCurve = kCACornerCurveContinuous;
+	self.backgroundBlurView.clipsToBounds = YES;
 
 	//Saturate and lighten the blur by removing the stupid subview thing that ios makes
 
@@ -49,6 +55,8 @@
 		}
 	}
 
+	[self updatePreferences];
+
 	return self;
 }
 
@@ -58,6 +66,10 @@
 	[UIView animateWithDuration:0.5 animations:^{
 		self.alpha = 0;
 	}];
+}
+
+-(void)updatePreferences{
+	self.backgroundBlurView.layer.cornerRadius = Preferences.sharedInstance.cornerRadius;
 }
 
 -(void)didPan:(UIPanGestureRecognizer*)recognizer{

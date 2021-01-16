@@ -11,4 +11,5 @@
 -(void)setup;
 
 @property(readonly) BOOL enabled;
+@property(readonly) double cornerRadius;
 @end

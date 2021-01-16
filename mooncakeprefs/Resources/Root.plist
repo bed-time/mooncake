@@ -40,7 +40,9 @@
 			<key>defaults</key>
 			<string>luv.bedtime.mooncakeprefs</string>
 			<key>key</key>
-			<string>Corner</string>
+			<string>cornerRadius</string>
+			<key>default</key>
+			<real>32</real>
 			<key>max</key>
 			<real>50</real>
 			<key>min</key>

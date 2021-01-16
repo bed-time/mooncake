@@ -12,6 +12,10 @@
 }
 
 @property(class, readonly) Mooncake *sharedInstance;
+@property(class, readonly) Mooncake *sharedInstanceIfExists;
 
+@property UIVisualEffectView *backgroundBlurView;
+
+-(void)updatePreferences;
 -(void)didPan:(UIPanGestureRecognizer*)recognizer;
 @end

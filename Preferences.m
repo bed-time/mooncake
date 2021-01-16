@@ -1,9 +1,11 @@
 #import <UIKit/UIKit.h>
 #import "Headers.h"
+#import "Mooncake.h"
 #import "Preferences.h"
 
 @implementation Preferences
 @synthesize enabled;
+@synthesize cornerRadius;
 
 +(instancetype)sharedInstance{
 	static Preferences *sharedInstance = NULL;
@@ -25,8 +27,10 @@
 
     if(preferences){
 		self->enabled = ([preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : true);
+		self->cornerRadius = ([preferences objectForKey:@"cornerRadius"] ? [[preferences objectForKey:@"cornerRadius"] doubleValue] : 32.0);
     }
 
 	[[NSClassFromString(@"SBControlCenterController") sharedInstanceIfExists] updateGestureRecognizers];
+	[Mooncake.sharedInstanceIfExists updatePreferences];
 }
 @end
