@@ -19,15 +19,15 @@ static Mooncake *sharedInstance = NULL;
 -(instancetype)init{
 	self = [super init];
 
-	self.windowLevel = UIWindowLevelAlert + 1;
+	self.windowLevel = 999;
 	[self _setSecure:true];
-	self.backgroundColor = UIColor.clearColor;
+	self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.01];
 	self.alpha = 0;
 	self.hidden = false;
 
 	self.presented = false;
 
-	UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOutside)];
+	UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_didTapOutside)];
 	[self addGestureRecognizer:tapRecognizer];
 
 	//Blur-thingy
@@ -46,7 +46,7 @@ static Mooncake *sharedInstance = NULL;
 	return self;
 }
 
--(void)didTapOutside{
+-(void)_didTapOutside{
 	[self dismissAnimated:true];
 }
 
