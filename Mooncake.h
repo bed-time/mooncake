@@ -6,15 +6,19 @@
 @interface Mooncake : UIWindow {
 	CGPoint _panPosition;
 
-	BOOL presented;
 	SBHomeGestureParticipant *participant;
 }
 
 @property(class, readonly) Mooncake *sharedInstance;
 @property(class, readonly) Mooncake *sharedInstanceIfExists;
 
+@property BOOL presented;
 @property UIVisualEffectView *backgroundBlurView;
 
 -(void)updatePreferences;
+
+-(void)presentAnimated:(BOOL)animated;
+-(void)dismissAnimated:(BOOL)animated;
+
 -(void)didPan:(UIPanGestureRecognizer*)recognizer;
 @end

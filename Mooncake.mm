@@ -2,8 +2,6 @@
 #import "Preferences.h"
 
 @implementation Mooncake
-@synthesize backgroundBlurView;
-
 static Mooncake *sharedInstance = NULL;
 +(instancetype)sharedInstance{
     static dispatch_once_t onceToken;
@@ -27,7 +25,7 @@ static Mooncake *sharedInstance = NULL;
 	self.alpha = 0;
 	self.hidden = false;
 
-	presented = false;
+	self.presented = false;
 
 	UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOutside)];
 	[self addGestureRecognizer:tapRecognizer];
@@ -79,7 +77,7 @@ static Mooncake *sharedInstance = NULL;
 		return;
 	}
 
-	if(presented) return;
+	if(self.presented) return;
 
 	int orientation = MSHookIvar<NSInteger>(((SpringBoard*)UIApplication.sharedApplication), "_activeInterfaceOrientation");
 	BOOL modern = ((SBControlCenterController*)[NSClassFromString(@"SBControlCenterController") sharedInstance]).homeAffordanceViewController;
@@ -96,7 +94,7 @@ static Mooncake *sharedInstance = NULL;
 		} else{
 			if(diff >= 50) {
 				self.alpha = 1;
-				presented = true;
+				self.presented = true;
 				[self didPresent];
 			} else self.alpha = 0;
 		}
@@ -110,18 +108,18 @@ static Mooncake *sharedInstance = NULL;
 		[UIView animateWithDuration:0.25 animations:^{
 			self.alpha = 1;
 		} completion:^(BOOL finished){
-			presented = true;
+			self.presented = true;
 			[self didPresent];
 		}];
 	} else{
 		self.alpha = 1;
-		presented = true;
+		self.presented = true;
 		[self didPresent];
 	}
 }
 
 -(void)dismissAnimated:(BOOL)animated{
-	presented = false;
+	self.presented = false;
 	[self willDismiss];
 
 	if(animated){
