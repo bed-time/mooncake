@@ -26,6 +26,9 @@
 -(void)loadPreferences{
 	NSMutableDictionary *preferences = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/var/mobile/Library/Preferences/luv.bedtime.mooncakeprefs.plist"];
 
+	self->enabled = true;
+	self->cornerRadius = 32.0;
+
     if(preferences){
 		self->enabled = ([preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : true);
 		self->cornerRadius = ([preferences objectForKey:@"cornerRadius"] ? [[preferences objectForKey:@"cornerRadius"] doubleValue] : 32.0);

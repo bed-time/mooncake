@@ -57,7 +57,7 @@
 	cell.layer.masksToBounds = NO;
 	cell.clipsToBounds = NO;
 
-	if([cell isKindOfClass:[NSClassFromString(@"PSTableCell") class]] && ((PSTableCell*)cell).titleLabel.textColor == UIColor.labelColor) ((PSTableCell*)cell).titleLabel.textColor = UIColor.whiteColor;
+	if([cell isKindOfClass:[NSClassFromString(@"PSTableCell") class]] && ((PSTableCell*)cell).titleLabel.textColor == ([UIColor respondsToSelector:@selector(labelColor)] ? UIColor.labelColor : UIColor.blackColor)) ((PSTableCell*)cell).titleLabel.textColor = UIColor.whiteColor;
 	return cell;
 }
 

@@ -1,9 +1,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "Headers.h"
+#import "substrate.h"
 
-@interface Mooncake : UIWindow{
-	CGFloat _panY;
+@interface Mooncake : UIWindow {
+	CGPoint _panPosition;
 
 	BOOL presented;
 	SBHomeGestureParticipant *participant;
