@@ -35,6 +35,13 @@
 }
 %end
 
+%hook SBHomeHardwareButton
+-(void)singlePressUp:(id)press{
+	if(!Mooncake.sharedInstanceIfExists.presented) %orig;
+	else [Mooncake.sharedInstanceIfExists dismissAnimated:true];
+}
+%end
+
 %ctor {
 	[Preferences.sharedInstance setup];
 }
