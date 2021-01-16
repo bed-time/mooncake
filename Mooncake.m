@@ -46,6 +46,11 @@ static Mooncake *sharedInstance = NULL;
 	self.backgroundBlurView.layer.cornerCurve = kCACornerCurveContinuous;
 	self.backgroundBlurView.clipsToBounds = YES;
 
+	visualEffectView.layer.shadowRadius  = 20.0f;
+	visualEffectView.layer.shadowColor   = [UIColor blackColor].CGColor;
+	visualEffectView.layer.shadowOffset  = CGSizeMake(0.0f, 0.0f);
+	visualEffectView.layer.shadowOpacity = 0.55f;
+
 	//Saturate and lighten the blur by removing the stupid subview thing that ios makes
 
 	for(UIView *view in self.subviews) {
