@@ -39,3 +39,7 @@
 
 @property SBHomeGestureArbiter *homeGestureArbiter;
 @end
+
+@interface SBCoverSheetPrimarySlidingViewController : UIViewController
+@property(nonatomic) SBGrabberTongue *grabberTongue;
+@end

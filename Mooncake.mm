@@ -19,7 +19,7 @@ static Mooncake *sharedInstance = NULL;
 -(instancetype)init{
 	self = [super init];
 
-	self.windowLevel = 999;
+	self.windowLevel = 1999;
 	[self _setSecure:true];
 	self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.01];
 	self.alpha = 0;
@@ -44,6 +44,10 @@ static Mooncake *sharedInstance = NULL;
 	[self updatePreferences];
 
 	return self;
+}
+
+-(void)setCoverSheetController:(SBCoverSheetPrimarySlidingViewController*)controller{
+	_coverSheetController = controller;
 }
 
 -(void)_didTapOutside{
@@ -138,11 +142,15 @@ static Mooncake *sharedInstance = NULL;
 
 -(void)didPresent{
 	participant = [((SBMainWorkspace*)[NSClassFromString(@"SBMainWorkspace") sharedInstance]).homeGestureArbiter participantWithIdentifier:15 delegate:NULL];
+
+	MSHookIvar<UIPanGestureRecognizer*>(_coverSheetController.grabberTongue, "_edgePullGestureRecognizer").enabled = false;
 }
 
 -(void)willDismiss{
 	[participant invalidate];
 	participant = NULL;
+
+	MSHookIvar<UIPanGestureRecognizer*>(_coverSheetController.grabberTongue, "_edgePullGestureRecognizer").enabled = true;
 }
 
 -(void)didDismiss{}

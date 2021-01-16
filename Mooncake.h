@@ -5,6 +5,7 @@
 
 @interface Mooncake : UIWindow {
 	CGPoint _panPosition;
+	SBCoverSheetPrimarySlidingViewController *_coverSheetController;
 
 	SBHomeGestureParticipant *participant;
 }
@@ -14,6 +15,8 @@
 
 @property BOOL presented;
 @property UIVisualEffectView *backgroundBlurView;
+
+-(void)setCoverSheetController:(SBCoverSheetPrimarySlidingViewController*)controller;
 
 -(void)updatePreferences;
 

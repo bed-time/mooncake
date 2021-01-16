@@ -42,6 +42,14 @@
 }
 %end
 
+%hook SBCoverSheetPrimarySlidingViewController
+-(void)viewDidLoad{
+	%orig;
+
+	[Mooncake.sharedInstance setCoverSheetController:self];
+}
+%end
+
 %ctor {
 	[Preferences.sharedInstance setup];
 }
