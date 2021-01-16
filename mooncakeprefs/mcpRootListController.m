@@ -24,6 +24,8 @@
 	self.navigationController.navigationController.navigationBar.titleTextAttributes = titleTextAttributes;
 }
 
+
+
 - (NSArray *)specifiers {
 	if (!_specifiers) {
 		_specifiers = [self loadSpecifiersFromPlistName:@"Root" target:self];
@@ -47,6 +49,7 @@
 }
 
 -(UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath{
+
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 	cell.backgroundColor = UIColor.blackColor;
 
