@@ -63,7 +63,7 @@ static Mooncake *sharedInstance = NULL;
 -(void)didTapOutside{
 	presented = false;
 
-	[UIView animateWithDuration:0.5 animations:^{
+	[UIView animateWithDuration:0.25 animations:^{
 		self.alpha = 0;
 	}];
 }
@@ -83,15 +83,16 @@ static Mooncake *sharedInstance = NULL;
 	if(presented) return;
 
 	CGFloat diff = MAX(MIN(newY - _panY, 100), 0);
-	self.alpha = diff / 100.0;
 
-	if(recognizer.state == UIGestureRecognizerStateEnded){
-		[UIView animateWithDuration:0.25 animations:^{
+	[UIView animateWithDuration:0.25 animations:^{
+		if(recognizer.state != UIGestureRecognizerStateEnded){
+			self.alpha = diff / 100.0;
+		} else{
 			if(diff >= 50) {
 				self.alpha = 1;
 				presented = true;
 			} else self.alpha = 0;
-		}];
-	}
+		}
+	}];
 }
 @end
