@@ -56,7 +56,7 @@ static Mooncake *sharedInstance = NULL;
 	[self.backgroundBlurView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2 + Preferences.sharedInstance.padding,
 	UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2 - Preferences.sharedInstance.padding)];
 
-	//Saturate and lighten the blur by removing the stupid subview thing that ios makes
+	//The less the slider is, less vibrant, but hard visibility
 
 	for(UIView *view in self.subviews) {
 		if([view isMemberOfClass:NSClassFromString(@"UIVisualEffectView")]) {
