@@ -37,19 +37,11 @@ static Mooncake *sharedInstance = NULL;
 
 	self.backgroundBlurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
 
-	[self.backgroundBlurView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2 + Preferences.sharedInstance.padding,
-	 UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2 - Preferences.sharedInstance.padding)];
-
 	[self.backgroundBlurView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 	[self addSubview: self.backgroundBlurView];
 
 	self.backgroundBlurView.layer.cornerCurve = kCACornerCurveContinuous;
 	self.backgroundBlurView.clipsToBounds = YES;
-
-	visualEffectView.layer.shadowRadius  = 20.0f;
-	visualEffectView.layer.shadowColor   = [UIColor blackColor].CGColor;
-	visualEffectView.layer.shadowOffset  = CGSizeMake(0.0f, 0.0f);
-	visualEffectView.layer.shadowOpacity = 0.55f;
 
 	//Saturate and lighten the blur by removing the stupid subview thing that ios makes
 
@@ -79,6 +71,9 @@ static Mooncake *sharedInstance = NULL;
 
 -(void)updatePreferences{
 	self.backgroundBlurView.layer.cornerRadius = Preferences.sharedInstance.cornerRadius;
+
+	[self.backgroundBlurView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2 + Preferences.sharedInstance.padding,
+	UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2 - Preferences.sharedInstance.padding)];
 }
 
 -(void)didPan:(UIPanGestureRecognizer*)recognizer{
