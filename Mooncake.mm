@@ -61,12 +61,7 @@ static Mooncake *sharedInstance = NULL;
 }
 
 -(void)didTapOutside{
-	presented = false;
-	[self didDismiss];
-
-	[UIView animateWithDuration:0.25 animations:^{
-		self.alpha = 0;
-	}];
+	[self dismissAnimated:true];
 }
 
 -(void)updatePreferences{
@@ -74,16 +69,23 @@ static Mooncake *sharedInstance = NULL;
 }
 
 -(void)didPan:(UIPanGestureRecognizer*)recognizer{
-	CGFloat newY = [recognizer locationInView:recognizer.view].y;
+	CGPoint _newPosition = [recognizer locationInView:recognizer.view];
 
 	if(recognizer.state == UIGestureRecognizerStateBegan){
-		_panY = newY;
+		_panPosition = _newPosition;
 		return;
 	}
 
 	if(presented) return;
 
-	CGFloat diff = MAX(MIN(newY - _panY, 100), 0);
+	int orientation = MSHookIvar<NSInteger>(((SpringBoard*)UIApplication.sharedApplication), "_activeInterfaceOrientation");
+	BOOL modern = ((SBControlCenterController*)[NSClassFromString(@"SBControlCenterController") sharedInstance]).homeAffordanceViewController;
+
+	double multiplier = ((orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) ? (!modern ? -1.0 : 1.0) : 1.0) * ((orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationPortraitUpsideDown) ? -1.0 : 1.0);
+	double old = ((orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) ? _panPosition.y : _panPosition.x);
+	double current = ((orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) ? _newPosition.y : _newPosition.x);
+
+	double diff = fmax(fmin((current - old) * multiplier, 100.0), 0.0);
 
 	[UIView animateWithDuration:0.25 animations:^{
 		if(recognizer.state != UIGestureRecognizerStateEnded){
@@ -98,12 +100,49 @@ static Mooncake *sharedInstance = NULL;
 	}];
 }
 
+-(void)presentAnimated:(BOOL)animated{
+	[self willPresent];
+
+	if(animated){
+		[UIView animateWithDuration:0.25 animations:^{
+			self.alpha = 1;
+		} completion:^(BOOL finished){
+			presented = true;
+			[self didPresent];
+		}];
+	} else{
+		self.alpha = 1;
+		presented = true;
+		[self didPresent];
+	}
+}
+
+-(void)dismissAnimated:(BOOL)animated{
+	presented = false;
+	[self willDismiss];
+
+	if(animated){
+		[UIView animateWithDuration:0.25 animations:^{
+			self.alpha = 0;
+		} completion:^(BOOL finished){
+			[self didDismiss];
+		}];
+	} else{
+		self.alpha = 0;
+		[self didDismiss];
+	}
+}
+
+-(void)willPresent{}
+
 -(void)didPresent{
 	participant = [((SBMainWorkspace*)[NSClassFromString(@"SBMainWorkspace") sharedInstance]).homeGestureArbiter participantWithIdentifier:15 delegate:NULL];
 }
 
--(void)didDismiss{
+-(void)willDismiss{
 	[participant invalidate];
 	participant = NULL;
 }
+
+-(void)didDismiss{}
 @end

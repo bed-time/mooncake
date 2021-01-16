@@ -1,5 +1,11 @@
+#import <SpringBoard/SpringBoard.h>
+
 @interface UIWindow()
 -(void)_setSecure:(BOOL)secure;
+@end
+
+@interface UIDevice()
++(BOOL)_hasHomeButton;
 @end
 
 @interface SBGrabberTongue : NSObject{
@@ -9,6 +15,7 @@
 
 @interface SBControlCenterController : NSObject
 @property(nonatomic) UIWindow *window;
+@property(nonatomic) UIViewController *homeAffordanceViewController;
 @property(nonatomic) SBGrabberTongue *grabberTongue;
 @property(nonatomic) UIPanGestureRecognizer *statusBarPullGestureRecognizer;
 @property(nonatomic) UIGestureRecognizer *indirectStatusBarPullGestureRecognizer;
