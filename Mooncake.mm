@@ -43,18 +43,6 @@ static Mooncake *sharedInstance = NULL;
 	self.backgroundBlurView.layer.cornerCurve = kCACornerCurveContinuous;
 	self.backgroundBlurView.clipsToBounds = YES;
 
-	//Saturate and lighten the blur by removing the stupid subview thing that ios makes
-
-	for(UIView *view in self.subviews) {
-		if([view isMemberOfClass:NSClassFromString(@"UIVisualEffectView")]) {
-			for(UIView *view2 in view.subviews) {
-				if([view2 isMemberOfClass:NSClassFromString(@"_UIVisualEffectSubview")]) {
-					[view2 removeFromSuperview];
-				}
-			}
-		}
-	}
-
 	[self updatePreferences];
 
 	return self;
@@ -69,6 +57,18 @@ static Mooncake *sharedInstance = NULL;
 
 	[self.backgroundBlurView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2 + Preferences.sharedInstance.padding,
 	UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2 - Preferences.sharedInstance.padding)];
+
+	//Saturate and lighten the blur by removing the stupid subview thing that ios makes
+
+	for(UIView *view in self.subviews) {
+		if([view isMemberOfClass:NSClassFromString(@"UIVisualEffectView")]) {
+			for(UIView *view2 in view.subviews) {
+				if([view2 isMemberOfClass:NSClassFromString(@"_UIVisualEffectSubview")]) {
+					[view2 setAlpha: Preferences.sharedInstance.alpha];
+				}
+			}
+		}
+	}
 }
 
 -(void)didPan:(UIPanGestureRecognizer*)recognizer{

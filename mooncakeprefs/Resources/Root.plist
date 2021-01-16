@@ -76,6 +76,27 @@
 
 		<dict>
 			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>isSegmented</key>
+			<false/>
+			<key>defaults</key>
+			<string>luv.bedtime.mooncakeprefs</string>
+			<key>key</key>
+			<string>alpha</string>
+			<key>default</key>
+			<real>0</real>
+			<key>max</key>
+			<real>1</real>
+			<key>min</key>
+			<real>0</real>
+			<key>leftImage</key>
+			<string>padding.png</string>
+			<key>showValue</key>
+			<true/>
+		</dict>
+
+		<dict>
+			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>ʕ•ᴥ•ʔ</string>
