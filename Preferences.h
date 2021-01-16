@@ -12,4 +12,5 @@
 
 @property(readonly) BOOL enabled;
 @property(readonly) double cornerRadius;
+@property(readonly) double padding;
 @end

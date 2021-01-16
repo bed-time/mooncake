@@ -36,7 +36,7 @@ static Mooncake *sharedInstance = NULL;
 	UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
 
 	self.backgroundBlurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-	[self.backgroundBlurView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2)];
+
 	[self.backgroundBlurView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 	[self addSubview: self.backgroundBlurView];
 
@@ -66,6 +66,9 @@ static Mooncake *sharedInstance = NULL;
 
 -(void)updatePreferences{
 	self.backgroundBlurView.layer.cornerRadius = Preferences.sharedInstance.cornerRadius;
+
+	[self.backgroundBlurView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2 + Preferences.sharedInstance.padding,
+	UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2 - Preferences.sharedInstance.padding)];
 }
 
 -(void)didPan:(UIPanGestureRecognizer*)recognizer{

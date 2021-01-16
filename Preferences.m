@@ -6,6 +6,7 @@
 @implementation Preferences
 @synthesize enabled;
 @synthesize cornerRadius;
+@synthesize padding;
 
 +(instancetype)sharedInstance{
 	static Preferences *sharedInstance = NULL;
@@ -29,8 +30,9 @@
 	self->cornerRadius = 32.0;
 
     if(preferences){
-		self->enabled = ([preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : self->enabled);
-		self->cornerRadius = ([preferences objectForKey:@"cornerRadius"] ? [[preferences objectForKey:@"cornerRadius"] doubleValue] : self->cornerRadius);
+		self->enabled = ([preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : true);
+		self->cornerRadius = ([preferences objectForKey:@"cornerRadius"] ? [[preferences objectForKey:@"cornerRadius"] doubleValue] : 32.0);
+		self->padding = ([preferences objectForKey:@"padding"] ? [[preferences objectForKey:@"padding"] doubleValue] : 32.0);
     }
 
 	[[NSClassFromString(@"SBControlCenterController") sharedInstanceIfExists] updateGestureRecognizers];
