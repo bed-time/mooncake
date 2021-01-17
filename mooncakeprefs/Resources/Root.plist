@@ -86,7 +86,28 @@
 			<key>default</key>
 			<real>0</real>
 			<key>max</key>
-			<real>1</real>
+			<real>2</real>
+			<key>min</key>
+			<real>0</real>
+			<key>leftImage</key>
+			<string>padding.png</string>
+			<key>showValue</key>
+			<true/>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>isSegmented</key>
+			<false/>
+			<key>defaults</key>
+			<string>luv.bedtime.mooncakeprefs</string>
+			<key>key</key>
+			<string>outline</string>
+			<key>default</key>
+			<real>0</real>
+			<key>max</key>
+			<real>100</real>
 			<key>min</key>
 			<real>0</real>
 			<key>leftImage</key>
@@ -99,7 +120,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>ʕ•ᴥ•ʔ</string>
+			<string>extras...</string>
 		</dict>
 
 		<dict>

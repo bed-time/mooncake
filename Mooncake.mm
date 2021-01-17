@@ -31,7 +31,7 @@ static Mooncake *sharedInstance = NULL;
 	[self addGestureRecognizer:tapRecognizer];
 
 	//Blur-thingy
-	UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+	UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
 
 	self.backgroundBlurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
 
@@ -60,7 +60,7 @@ static Mooncake *sharedInstance = NULL;
 	[self.backgroundBlurView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2 + Preferences.sharedInstance.padding,
 	UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2 - Preferences.sharedInstance.padding)];
 
-	//The less the slider is, less vibrant, but hard visibility
+	//The less the slider is, more vibrant, but hard visibility
 
 	for(UIView *view in self.subviews) {
 		if([view isMemberOfClass:NSClassFromString(@"UIVisualEffectView")]) {
@@ -144,6 +144,8 @@ static Mooncake *sharedInstance = NULL;
 	participant = [((SBMainWorkspace*)[NSClassFromString(@"SBMainWorkspace") sharedInstance]).homeGestureArbiter participantWithIdentifier:15 delegate:NULL];
 
 	MSHookIvar<UIPanGestureRecognizer*>(_coverSheetController.grabberTongue, "_edgePullGestureRecognizer").enabled = false;
+	[self.backgroundBlurView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2 + Preferences.sharedInstance.padding,
+	UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2 - Preferences.sharedInstance.padding)];
 }
 
 -(void)willDismiss{
@@ -151,6 +153,8 @@ static Mooncake *sharedInstance = NULL;
 	participant = NULL;
 
 	MSHookIvar<UIPanGestureRecognizer*>(_coverSheetController.grabberTongue, "_edgePullGestureRecognizer").enabled = true;
+	[self.backgroundBlurView setFrame: CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2 + Preferences.sharedInstance.padding,
+	UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2 - Preferences.sharedInstance.padding)];
 }
 
 -(void)didDismiss{}
