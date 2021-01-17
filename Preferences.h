@@ -14,6 +14,7 @@
 @property(readonly) double cornerRadius;
 @property(readonly) double padding;
 @property(readonly) double alpha;
+@property(readonly) double inset;
 @property(readonly) double contentMargin;
 @property(readonly) double spaceBetweenModules;
 @end

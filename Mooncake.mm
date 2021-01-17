@@ -90,7 +90,7 @@ static Mooncake *sharedInstance = NULL;
 	[self addSubview:menuView];
 
 	//Blur-thingy
-	UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+	UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
 
 	backgroundBlurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
 
