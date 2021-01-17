@@ -130,7 +130,7 @@ static Mooncake *sharedInstance = NULL;
 
 	moduleContainer.frame = CGRectMake(Preferences.sharedInstance.contentMargin, Preferences.sharedInstance.contentMargin, menuView.bounds.size.width - 2 * Preferences.sharedInstance.contentMargin, menuView.bounds.size.height - 2 * Preferences.sharedInstance.contentMargin);
 
-	//The less the slider is, less vibrant, but hard visibility
+	//The less the slider is, more vibrant, but hard visibility
 	for(UIView *view2 in backgroundBlurView.subviews) {
 		if([view2 isMemberOfClass:NSClassFromString(@"_UIVisualEffectSubview")]) {
 			[view2 setAlpha:Preferences.sharedInstance.alpha];
