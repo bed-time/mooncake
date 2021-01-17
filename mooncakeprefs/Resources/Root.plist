@@ -103,11 +103,11 @@
 			<key>defaults</key>
 			<string>luv.bedtime.mooncakeprefs</string>
 			<key>key</key>
-			<string>outline</string>
+			<string>inset</string>
 			<key>default</key>
 			<real>0</real>
 			<key>max</key>
-			<real>100</real>
+			<real>10</real>
 			<key>min</key>
 			<real>0</real>
 			<key>leftImage</key>
