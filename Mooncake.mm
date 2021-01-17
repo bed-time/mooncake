@@ -230,7 +230,7 @@ static Mooncake *sharedInstance = NULL;
 
 	CGFloat side = (moduleContainer.bounds.size.width - (layout.size.width - 1) * Preferences.sharedInstance.spaceBetweenModules) / layout.size.width;
 	CGFloat cornerRadius = Preferences.sharedInstance.cornerRadius - Preferences.sharedInstance.contentMargin;
-	CGFloat innerCornerRadius = cornerRadius / 1.5;
+	CGFloat innerCornerRadius = cornerRadius + Preferences.sharedInstance.spaceBetweenModules;
 
 	for(Module *module in layout.modules){
 		CGRect bounds = [layout boundsForModule:module];
