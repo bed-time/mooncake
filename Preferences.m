@@ -8,6 +8,8 @@
 @synthesize cornerRadius;
 @synthesize padding;
 @synthesize alpha;
+@synthesize contentMargin;
+@synthesize spaceBetweenModules;
 
 +(instancetype)sharedInstance{
 	static Preferences *sharedInstance = NULL;
@@ -30,6 +32,8 @@
 	self->enabled = true;
 	self->cornerRadius = 32.0;
 	self->alpha = 0.5;
+	self->contentMargin = 10;
+	self->spaceBetweenModules = 10;
 
     if(preferences){
 		self->enabled = ([preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : true);
