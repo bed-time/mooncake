@@ -5,7 +5,7 @@
 -(instancetype)init{
 	self = [super init];
 
-	self.uniqueIdentifier = [Mooncake.sharedInstance generateUniqueIdentifier];
+	self.uniqueIdentifier = [Mooncake generateUniqueIdentifier];
 
 	return self;
 }
@@ -95,6 +95,9 @@
 		@[@1]
 	];
 }
+
+-(void)load{}
+-(void)loadInBackground{}
 
 -(void)willAppear{}
 -(void)didAppear{}

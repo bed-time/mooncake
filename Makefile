@@ -5,7 +5,7 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = Mooncake
 
-Mooncake_FILES = $(wildcard *.x *.xm *.m *.mm)
+Mooncake_FILES = $(wildcard *.x *.xm *.m *.mm Modules/*.m)
 Mooncake_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk

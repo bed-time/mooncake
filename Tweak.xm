@@ -8,25 +8,23 @@
 %hook SBControlCenterController
 -(instancetype)init{
 	SBControlCenterController *instance = %orig;
-
-	[self updateGestureRecognizers];
-
+	[instance updateGestureRecognizers];
 	return instance;
 }
 
 %new
 -(void)updateGestureRecognizers{
 	[MSHookIvar<UIPanGestureRecognizer*>(self.grabberTongue, "_edgePullGestureRecognizer") removeTarget:self.grabberTongue action:@selector(_handlePullGesture:)];
-	[MSHookIvar<UIPanGestureRecognizer*>(self.grabberTongue, "_edgePullGestureRecognizer") removeTarget:Mooncake.sharedInstance action:@selector(didPan:)];
+	[MSHookIvar<UIPanGestureRecognizer*>(self.grabberTongue, "_edgePullGestureRecognizer") removeTarget:Mooncake.sharedInstanceIfExists action:@selector(didPan:)];
 	[self.statusBarPullGestureRecognizer removeTarget:self action:@selector(_handleStatusBarPullDownGesture:)];
-	[self.statusBarPullGestureRecognizer removeTarget:Mooncake.sharedInstance action:@selector(didPan:)];
+	[self.statusBarPullGestureRecognizer removeTarget:Mooncake.sharedInstanceIfExists action:@selector(didPan:)];
 	[self.indirectStatusBarPullGestureRecognizer removeTarget:self action:@selector(_handleStatusBarPullDownGesture:)];
-	[self.indirectStatusBarPullGestureRecognizer removeTarget:Mooncake.sharedInstance action:@selector(didPan:)];
+	[self.indirectStatusBarPullGestureRecognizer removeTarget:Mooncake.sharedInstanceIfExists action:@selector(didPan:)];
 
 	if(Preferences.sharedInstance.enabled){
-		[MSHookIvar<UIPanGestureRecognizer*>(self.grabberTongue, "_edgePullGestureRecognizer") addTarget:Mooncake.sharedInstance action:@selector(didPan:)];
-		[self.statusBarPullGestureRecognizer addTarget:Mooncake.sharedInstance action:@selector(didPan:)];
-		[self.indirectStatusBarPullGestureRecognizer addTarget:Mooncake.sharedInstance action:@selector(didPan:)];
+		[MSHookIvar<UIPanGestureRecognizer*>(self.grabberTongue, "_edgePullGestureRecognizer") addTarget:Mooncake.sharedInstanceIfExists action:@selector(didPan:)];
+		[self.statusBarPullGestureRecognizer addTarget:Mooncake.sharedInstanceIfExists action:@selector(didPan:)];
+		[self.indirectStatusBarPullGestureRecognizer addTarget:Mooncake.sharedInstanceIfExists action:@selector(didPan:)];
 	} else{
 		[MSHookIvar<UIPanGestureRecognizer*>(self.grabberTongue, "_edgePullGestureRecognizer") addTarget:self.grabberTongue action:@selector(_handlePullGesture:)];
 		[self.statusBarPullGestureRecognizer addTarget:self action:@selector(_handleStatusBarPullDownGesture:)];
@@ -46,7 +44,9 @@
 -(void)viewDidLoad{
 	%orig;
 
-	[Mooncake.sharedInstance setCoverSheetController:self];
+	(void)Mooncake.sharedInstance;
+	[[NSClassFromString(@"SBControlCenterController") sharedInstanceIfExists] updateGestureRecognizers];
+	[Mooncake.sharedInstanceIfExists setCoverSheetController:self];
 }
 %end
 

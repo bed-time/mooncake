@@ -12,18 +12,6 @@
 }
 @end
 
-@interface WideModule : Module
-@end
-
-@implementation WideModule
-+(NSArray<NSArray<NSNumber*>*>*)getShape{
-	return @[
-		@[@1],
-		@[@1]
-	];
-}
-@end
-
 @interface CornerModule : Module
 @end
 
@@ -54,7 +42,8 @@ static Mooncake *sharedInstance = NULL;
 +(instancetype)sharedInstance{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[Mooncake alloc] init];
+        Mooncake *instance = [[Mooncake alloc] init];
+		sharedInstance = [instance initWithoutSuper];
     });
 
     return sharedInstance;
@@ -64,11 +53,7 @@ static Mooncake *sharedInstance = NULL;
     return sharedInstance;
 }
 
--(instancetype)init{
-	self = [super init];
-
-	_uuids = [[NSMutableArray alloc] init];
-
+-(instancetype)initWithoutSuper{
 	self.windowLevel = 1999;
 	[self _setSecure:true];
 	self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.01];
@@ -99,15 +84,18 @@ static Mooncake *sharedInstance = NULL;
 
 	backgroundBlurView.layer.cornerCurve = kCACornerCurveContinuous;
 
-	moduleContainer = [[UIView alloc] init];
-	[menuView addSubview:moduleContainer];
+	self.moduleContainer = [[UIView alloc] init];
+	[menuView addSubview:self.moduleContainer];
 
 	[self updatePreferences];
 
 	return self;
 }
 
--(NSUUID*)generateUniqueIdentifier{
++(NSUUID*)generateUniqueIdentifier{
+	NSMutableArray<NSString*> *_uuids;
+	if(!_uuids) _uuids = [[NSMutableArray alloc] init];
+
 	NSUUID *uuid = [NSUUID UUID];
 	while([_uuids containsObject:uuid.UUIDString]) uuid = [NSUUID UUID];
 	[_uuids addObject:uuid.UUIDString];
@@ -128,7 +116,7 @@ static Mooncake *sharedInstance = NULL;
 	[menuView setFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height / 2 + Preferences.sharedInstance.padding,
 	UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height / 2 - Preferences.sharedInstance.padding)];
 
-	moduleContainer.frame = CGRectMake(Preferences.sharedInstance.contentMargin, Preferences.sharedInstance.contentMargin, menuView.bounds.size.width - 2 * Preferences.sharedInstance.contentMargin, menuView.bounds.size.height - 2 * Preferences.sharedInstance.contentMargin);
+	self.moduleContainer.frame = CGRectMake(Preferences.sharedInstance.contentMargin, Preferences.sharedInstance.contentMargin, menuView.bounds.size.width - 2 * Preferences.sharedInstance.contentMargin, menuView.bounds.size.height - 2 * Preferences.sharedInstance.contentMargin);
 
 	//The less the slider is, more vibrant, but hard visibility
 	for(UIView *view2 in backgroundBlurView.subviews) {
@@ -136,6 +124,65 @@ static Mooncake *sharedInstance = NULL;
 			[view2 setAlpha:Preferences.sharedInstance.alpha];
 		}
 	}
+
+	[self loadModules];
+}
+
+-(void)loadModules{
+	layout = [[ModuleLayout alloc] initWithSize:CGSizeMake(4, 4)];
+
+	for(int y = 0; y < self.moduleLayoutGuides.count; y++){
+		for(int x = 0; x < self.moduleLayoutGuides[y].count; x++){
+			[self.moduleContainer removeLayoutGuide:self.moduleLayoutGuides[y][x]];
+		}
+	}
+
+	self.moduleLayoutGuides = [[NSMutableArray alloc] init];
+	for(int y = 0; y < layout.size.height; y++){
+		self.moduleLayoutGuides[y] = [[NSMutableArray alloc] init];
+		for(int x = 0; x < layout.size.width; x++){
+			UILayoutGuide *guide = [[UILayoutGuide alloc] init];
+			self.moduleLayoutGuides[y][x] = guide;
+			[self.moduleContainer addLayoutGuide:guide];
+			
+			if(x > 0) [guide.leadingAnchor constraintEqualToAnchor:self.moduleLayoutGuides[y][x - 1].trailingAnchor constant:Preferences.sharedInstance.spaceBetweenModules].active = true;
+			else [guide.leadingAnchor constraintEqualToAnchor:self.moduleContainer.leadingAnchor].active = true;
+
+			if(y > 0) [guide.topAnchor constraintEqualToAnchor:self.moduleLayoutGuides[y - 1][x].bottomAnchor constant:Preferences.sharedInstance.spaceBetweenModules].active = true;
+			else [guide.topAnchor constraintEqualToAnchor:self.moduleContainer.topAnchor].active = true;
+			
+			[NSLayoutConstraint constraintWithItem:guide attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.moduleContainer attribute:NSLayoutAttributeWidth multiplier:1.0/layout.size.width constant:-((layout.size.width - 1.0) / layout.size.width) * Preferences.sharedInstance.spaceBetweenModules].active = true;
+			[guide.heightAnchor constraintEqualToAnchor:guide.widthAnchor].active = true;
+		}
+	}
+
+	SingleModule *single1 = [[SingleModule alloc] init];
+	[layout addModule:single1 atLocation:CGPointMake(3, 2)];
+
+	SingleModule *single2 = [[SingleModule alloc] init];
+	[layout addModule:single2 atLocation:CGPointMake(3, 3)];
+
+	BatteryModule *battery = [[BatteryModule alloc] init];
+	[layout addModule:battery atLocation:CGPointMake(0, 0)];
+
+	CornerModule *corner = [[CornerModule alloc] init];
+	[layout addModule:corner atLocation:CGPointMake(2, 0)];
+
+	DonutModule *donut = [[DonutModule alloc] init];
+	[layout addModule:donut atLocation:CGPointMake(0, 1)];
+
+	SingleModule *single3 = [[SingleModule alloc] init];
+	[layout addModule:single3 atLocation:CGPointMake(1, 2)];
+
+	for(Module *module in layout.modules){
+		[module load];
+	}
+
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		for(Module *module in layout.modules){
+			[module loadInBackground];
+		}
+	});
 }
 
 -(void)didPan:(UIPanGestureRecognizer*)recognizer{
@@ -208,33 +255,24 @@ static Mooncake *sharedInstance = NULL;
 }
 
 -(void)willPresent{
-	ModuleLayout *layout = [[ModuleLayout alloc] initWithSize:CGSizeMake(4, 4)];
-
-	SingleModule *single1 = [[SingleModule alloc] init];
-	[layout addModule:single1 atLocation:CGPointMake(0, 0)];
-
-	SingleModule *single2 = [[SingleModule alloc] init];
-	[layout addModule:single2 atLocation:CGPointMake(1, 0)];
-
-	WideModule *wide = [[WideModule alloc] init];
-	[layout addModule:wide atLocation:CGPointMake(3, 2)];
-
-	CornerModule *corner = [[CornerModule alloc] init];
-	[layout addModule:corner atLocation:CGPointMake(2, 0)];
-
-	DonutModule *donut = [[DonutModule alloc] init];
-	[layout addModule:donut atLocation:CGPointMake(0, 1)];
-
-	SingleModule *single3 = [[SingleModule alloc] init];
-	[layout addModule:single3 atLocation:CGPointMake(1, 2)];
-
-	CGFloat side = (moduleContainer.bounds.size.width - (layout.size.width - 1) * Preferences.sharedInstance.spaceBetweenModules) / layout.size.width;
+	CGFloat side = (self.moduleContainer.bounds.size.width - (layout.size.width - 1) * Preferences.sharedInstance.spaceBetweenModules) / layout.size.width;
 	CGFloat cornerRadius = Preferences.sharedInstance.cornerRadius - Preferences.sharedInstance.contentMargin;
 	CGFloat innerCornerRadius = cornerRadius + Preferences.sharedInstance.spaceBetweenModules;
 
 	for(Module *module in layout.modules){
+		[module willAppear];
+		[self.moduleContainer addSubview:module];
+		[module didAppear];
+
 		CGRect bounds = [layout boundsForModule:module];
-		module.frame = CGRectMake(bounds.origin.x * (side + Preferences.sharedInstance.spaceBetweenModules), bounds.origin.y * (side + Preferences.sharedInstance.spaceBetweenModules), bounds.size.width * side + (bounds.size.width - 1) * Preferences.sharedInstance.spaceBetweenModules, bounds.size.height * side + (bounds.size.height - 1) * Preferences.sharedInstance.spaceBetweenModules);
+		
+		module.translatesAutoresizingMaskIntoConstraints = false;
+		[module.leadingAnchor constraintEqualToAnchor:self.moduleLayoutGuides[(int)bounds.origin.y][(int)bounds.origin.x].leadingAnchor].active = true;
+		[module.topAnchor constraintEqualToAnchor:self.moduleLayoutGuides[(int)bounds.origin.y][(int)bounds.origin.x].topAnchor].active = true;
+
+		[module.trailingAnchor constraintEqualToAnchor:self.moduleLayoutGuides[(int)(bounds.origin.y + bounds.size.height - 1)][(int)(bounds.origin.x + bounds.size.width - 1)].trailingAnchor].active = true;
+		[module.bottomAnchor constraintEqualToAnchor:self.moduleLayoutGuides[(int)(bounds.origin.y + bounds.size.height - 1)][(int)(bounds.origin.x + bounds.size.width - 1)].bottomAnchor].active = true;
+
 		module.backgroundColor = UIColor.whiteColor;
 
 		CAShapeLayer *layer = [CAShapeLayer layer];
@@ -298,25 +336,25 @@ static Mooncake *sharedInstance = NULL;
 
 		layer.path = path.CGPath;
 		module.layer.mask = layer;
-
-		[moduleContainer addSubview:module];
 	}
 }
 
 -(void)didPresent{
 	participant = [((SBMainWorkspace*)[NSClassFromString(@"SBMainWorkspace") sharedInstance]).homeGestureArbiter participantWithIdentifier:15 delegate:NULL];
 
-	MSHookIvar<UIPanGestureRecognizer*>(_coverSheetController.grabberTongue, "_edgePullGestureRecognizer").enabled = false;
+	if(_coverSheetController) MSHookIvar<UIPanGestureRecognizer*>(_coverSheetController.grabberTongue, "_edgePullGestureRecognizer").enabled = false;
 }
 
 -(void)willDismiss{
 	[participant invalidate];
 	participant = NULL;
 
-	MSHookIvar<UIPanGestureRecognizer*>(_coverSheetController.grabberTongue, "_edgePullGestureRecognizer").enabled = true;
+	if(_coverSheetController) MSHookIvar<UIPanGestureRecognizer*>(_coverSheetController.grabberTongue, "_edgePullGestureRecognizer").enabled = true;
 }
 
 -(void)didDismiss{
-	for(UIView *subview in moduleContainer.subviews) [subview removeFromSuperview];
+	for(Module *module in layout.modules) [module willDisappear];
+	for(UIView *subview in self.moduleContainer.subviews) [subview removeFromSuperview];
+	for(Module *module in layout.modules) [module didDisappear];
 }
 @end

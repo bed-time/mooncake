@@ -14,6 +14,9 @@
 //Functions to Override
 +(NSArray<NSArray<NSNumber*>*>*)getShape;
 
+-(void)load;
+-(void)loadInBackground;
+
 -(void)willAppear;
 -(void)didAppear;
 -(void)willDisappear;

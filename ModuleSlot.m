@@ -16,7 +16,7 @@
 	self = [super init];
 
 	self->_size = CGSizeMake(1, 1);
-	self.uniqueIdentifier = [Mooncake.sharedInstance generateUniqueIdentifier];
+	self.uniqueIdentifier = [Mooncake generateUniqueIdentifier];
 
 	return self;
 }

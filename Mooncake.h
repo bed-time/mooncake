@@ -3,25 +3,28 @@
 #import "Headers.h"
 #import "substrate.h"
 #import "ModuleLayout.h"
+#import "Modules/Modules.h"
 
 @interface Mooncake : UIWindow {
 	CGPoint _panPosition;
 	SBCoverSheetPrimarySlidingViewController *_coverSheetController;
-	NSMutableArray<NSString*> *_uuids;
 
 	SBHomeGestureParticipant *participant;
 
+	ModuleLayout *layout;
+
 	UIView *menuView;
 	UIVisualEffectView *backgroundBlurView;
-	UIView *moduleContainer;
 }
 
-@property(class, readonly) Mooncake *sharedInstance;
-@property(class, readonly) Mooncake *sharedInstanceIfExists;
+@property(class, readonly, nonatomic) Mooncake *sharedInstance;
+@property(class, readonly, nonatomic) Mooncake *sharedInstanceIfExists;
 
 @property BOOL presented;
+@property(nonatomic) NSMutableArray<NSMutableArray<UILayoutGuide*>*> *moduleLayoutGuides;
+@property(nonatomic) UIView *moduleContainer;
 
--(NSUUID*)generateUniqueIdentifier;
++(NSUUID*)generateUniqueIdentifier;
 
 -(void)setCoverSheetController:(SBCoverSheetPrimarySlidingViewController*)controller;
 

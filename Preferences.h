@@ -7,7 +7,7 @@
 @end
 
 @interface Preferences : NSObject
-@property(class, readonly) Preferences *sharedInstance;
+@property(class, readonly, nonatomic) Preferences *sharedInstance;
 -(void)setup;
 
 @property(readonly) BOOL enabled;
